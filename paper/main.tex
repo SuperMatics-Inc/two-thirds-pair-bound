@@ -1,0 +1,317 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks,pdfusetitle]{hyperref}
+\newcommand{\DOI}[1]{\mbox{\href{https://doi.org/#1}{\nolinkurl{#1}}}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Var}{Var}
+\newcommand*{\LINEARFOURDOI}{10.5281/zenodo.24372238}
+\newcommand*{\LINEARFOURSUPPDOI}{10.5281/zenodo.24372242}
+\newcommand*{\LINEARFOURREPO}{https://github.com/SuperMatics-Inc/two-thirds-pair-bound}
+\newcommand{\ifstaged}[3]{\ifx#1\empty #3\else #2\fi}
+\title{A two-thirds-power adiabatic bound for electronic pair order}
+\author{Davis Rens\\SuperMatics Inc.\\\href{https://orcid.org/0000-0001-5839-5197}{ORCID 0000-0001-5839-5197}}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+For slow but genuinely quantum phonons, an expansion about annealed static coordinates gives a square-root upper bound on the temperature of algebraic electronic pair correlations. We improve this bound for the spinful square-lattice Holstein and bond SSH models with independent harmonic phonons and no direct electron interaction. We retain bounded time-dependent phonon histories in a quadratic electronic reference and restore the complementary histories exactly, one coordinate at a time. Uniform Wick estimates and a Gaussian supremum bound give exponential clustering when $\tau^3\ge 2^{25}U\Omega^2[1+\log(1+E/\tau)]$, where $\tau=k_BT$, $U=F^2/K$, $\Omega=\hbar\sqrt{K/m}$, and $E=t$ or $t+U$, respectively. This holds grand canonically and in periodic thermodynamic states at every interior density. At fixed hopping and coupling the upper bound on the electronic pairing diagnostic is of order $\Omega^{2/3}[\log(E/\Omega)]^{1/3}$. It is not an asymptotic formula for a transition temperature or a bound on finite-mass square-lattice helicity.
+\end{abstract}
+
+\section{Models and statement}
+The annealed static limit is an integral over classical oscillator coordinates, with the electronic trace included in the weight. The static result in Ref.~\cite{slow} makes no small-hopping assumption. Its extension to quantum phonons proves square-lattice clustering at temperatures above an explicit threshold of order $\Omega^{1/2}$ at fixed coupling and hopping. A separate cylinder argument controls the pair density matrix and axial helicity at positive phonon energy, but does not give an isotropic square-lattice estimate~\cite{cylinders}. Here we return to the square and address fixed local electronic correlations directly.
+
+Let $\Lambda$ be a periodic nearest-neighbor square lattice, $V_\Lambda=|\Lambda|$, and $d$ its graph distance. There are two electron spin species, with annihilators $c_{x\sigma}$. Define $n_x=\sum_\sigma c_{x\sigma}^\dagger c_{x\sigma}$, $N=\sum_x n_x$, and, for an undirected bond $e=\{x,y\}$,
+\[
+ B_e=\sum_\sigma (c_{x\sigma}^\dagger c_{y\sigma}+c_{y\sigma}^\dagger c_{x\sigma}).
+\]
+Use $b=FX$ as the oscillator energy coordinate, with force $F$, spring constant $K$, and mass $m$. Write $U=F^2/K>0$ for the relaxation energy (not a Hubbard repulsion), $\Omega=\hbar\sqrt{K/m}>0$, $\tau=k_BT>0$, and $\beta=1/\tau$. For bare hopping $t>0$ the Hamiltonian is
+\begin{equation}\label{eq:model}
+ H=-t\sum_e B_e+\sum_j\left(-\frac{U\Omega^2}{2}\partial_{b_j}^2+\frac{b_j^2}{2U}+b_j B_j\right).
+\end{equation}
+In Holstein, $j=x$ and $B_j=n_x$. In bond Su--Schrieffer--Heeger (SSH), $j=e$ and $B_j=B_e$, so the hopping coefficient is $-t+b_e$. Each coordinate is an independent neutral oscillator before coupling, and there are no other electron interactions or magnetic fields. Both couplings have $\|B_j\|\le 2$. Grand-canonical traces use $H-\mu N$ for real $\mu$; canonical traces restrict to the indicated particle number. Partition functions below are divided by the full free phonon trace. This normalization does not change electronic expectations.
+
+A local electronic field $A$ has charge $q$ if $[N,A]=qA$. Its support is fixed as volume increases; $A_y$ denotes translation by $y$. We use $T_{\rm pair}$ for the supremum of temperatures with algebraic equal-time correlations in the thermodynamic limit for a fixed local electronic charge-two field and its conjugate, allowing oscillatory factors and multiplicative logarithms (and zero if the set is empty). Consequently any bare electronic pairing diagnostic of this kind is subject to the following bound.
+
+\begin{theorem}[Square-lattice clustering]\label{thm:clustering}
+Set $E=t$ for Holstein and $E=t+U$ for bond SSH. If
+\begin{equation}\label{eq:threshold}
+ \tau^3\ge 2^{25}U\Omega^2[1+\log(1+E/\tau)],
+\end{equation}
+then fixed finite-support electronic fields $A,B$ of opposite nonzero even charge satisfy
+\begin{equation}\label{eq:clustering}
+ |\langle A B_y\rangle|\le C_{A,B} \exp[-a d(0,y)/2],\qquad
+ a=(1+16\beta J)^{-1},
+\end{equation}
+where $J=t$ for Holstein and $J=t+4096(t+U+\tau)$ for SSH. The bound is uniform in grand-canonical volume and real chemical potential and holds in periodic thermodynamic canonical states along any sequence with $N/V_\Lambda\to n\in(0,2)$. No assumption on the bare Fermi surface is needed. In particular $k_BT_{\rm pair}\le\tau_*$, the unique positive root of equality in \eqref{eq:threshold}. At fixed $t,U>0$,
+\begin{equation}\label{eq:asymptotic}
+ \tau_*\sim \bigl[(2/3)2^{25}U\bigr]^{1/3}\Omega^{2/3}
+               [\log(E/\Omega)]^{1/3}\qquad (\Omega\downarrow 0).
+\end{equation}
+\end{theorem}
+
+\section{Harmonic histories and the quadratic reference}
+The free normalized oscillator trace gives a centered Gaussian loop $b(u)$ on $0\le u\le\beta$ with covariance
+\begin{equation}\label{eq:cov}
+ D(u,w)=\frac U\beta\sum_{k\in\mathbb Z}\frac{\Omega^2}{\nu_k^2+\Omega^2}
+             e^{i\nu_k(u-w)},\qquad \nu_k=2\pi k/\beta.
+\end{equation}
+Indeed the kinetic and spring terms in \eqref{eq:model} give the periodic Green function of $(-\partial_u^2+\Omega^2)/(U\Omega^2)$. Writing $l=|u-w|$, the kernel is $(U\Omega/2)(e^{-\Omega l}+e^{-\Omega(\beta-l)})/(1-e^{-\beta\Omega})$. In particular $D\ge 0$ pointwise and $\int_0^\beta D(u,w)\,dw=U$. In the electronic Dyson series the time-ordered oscillator moments are the Gaussian Wick moments of this kernel, as follows from the linear creation and annihilation representation of $b$. Retaining electronic time ordering therefore gives the exact normalized partition and electronic insertions by integrating the finite electronic evolution over independent loops. This representation can also be obtained by time slicing with the harmonic heat kernel. The loops are continuous, since they are diagonal Brownian bridges with a quadratic weight and Gaussian base coordinates. In finite volume the Dyson sums and the Gaussian integrals can be interchanged: the norm majorant for each coordinate uses $\exp(c\int_0^\beta |b(u)|\,du)$, integrable for all finite $c$ by Jensen's inequality in time and the finite Gaussian variance. The electronic terms and insertions are bounded at fixed volume. The same argument applies to fixed-number traces.
+
+Separate the zero mode $b_0=\beta^{-1}\int_0^\beta b(u)\,du$, a real Gaussian of variance $U/\beta$, from $v=b-b_0$. The two are independent by Gaussian orthogonality. We retain the entire bounded temporal perturbation, $\|v\|_\infty\le r=1/(64\beta)$, in the electronic reference. Holstein's static coordinates are unrestricted. For SSH alone the reference also takes $|b_0|\le R=4096(t+U+\tau)$. The complementary draws will all be restored; neither condition is a cutoff on the Hamiltonian. Write $h+V(u)$ for the reference one-particle matrix, where $h$ includes the chemical potential and the static coordinates. The nearest-neighbor entries of $h$ have modulus at most $J$ in Theorem~\ref{thm:clustering}.
+
+\begin{lemma}[Wick control for a bounded time-dependent reference]\label{lem:wick}
+Let $h$ be a real symmetric, spin-independent one-particle matrix on the square torus with nearest-neighbor hopping bounded by $J$ and arbitrary real diagonal. Suppose $V(u)$ is real, continuous, periodic and either diagonal or supported on nearest-neighbor bonds, with each coefficient bounded by $r=1/(64\beta)$. The reference electronic trace is nonzero. Its ordered covariance has weighted row and column $\ell^2$ norm at most $2$ with weight $e^{a d}$ about the fixed orbital. For fixed times and offsets within one step of the vertex anchors, the sum over the child anchor of the absolute contraction with weight $e^{a d/2}$ between anchors is at most $Q=64(1+4\beta J)$, in either attachment direction. After multiplying each contraction between vertices $i,j$ by $s_{ij}$ from a positive semidefinite matrix with $s_{ii}=1$, every balanced Wick minor on $k$ creators and $k$ annihilators has modulus at most $4^k$. The bounds include ordered coincident times and are uniform in volume, diagonal and history.
+\end{lemma}
+
+\begin{proof}
+On antiperiodic time functions let $C_0=(\partial_u+h)^{-1}$. At a positive separation $0<u-w<\beta$, each scalar slice at an eigenvalue $\epsilon$ is $e^{-(u-w)\epsilon}/(1+e^{-\beta\epsilon})$; negative separations follow by antiperiodicity. Both ordered limits at equal times have norm at most one, just as the other slices do. No such uniform bound on $e^{-u h}$ itself is needed.
+
+Fix a spatial anchor and let $W$ multiply by $e^{a d}$ from it. Conjugation of $h$ by $W$ or $W^{-1}$ leaves its diagonal unchanged. The change $P$ has absolute row and column sums at most $4J(e^a-1)\le 8Ja\le 1/(2\beta)$. At frequencies $\omega_k=(2k+1)\pi/\beta$ the static inverse has norm at most $1/|\omega_k|$; after conjugation it has norm at most $2/|\omega_k|$ by the resolvent identity and a Neumann series. Their difference has norm at most $2\|P\|/\omega_k^2$. The difference Fourier series is absolutely convergent, including at coincident times, so the conjugated static slice has norm at most $1+\beta\|P\|/2\le 5/4$. Here $\beta^{-1}\sum_k \omega_k^{-2}=\beta/4$, by Parseval applied to the constant function in the antiperiodic Fourier basis. The time-$L^2$ operator norm of the conjugated inverse is at most $2\beta/\pi\le\beta$.
+
+Without weights the potential satisfies $\beta\|V\|_\infty\le 1/16$, where the norm is the supremum of one-particle operator norms. With either conjugation its norm is at most $4e^a r\le 3/(16\beta)$ by the degree-four Schur bound. In both cases the time-operator inverse exists and is
+\begin{equation}\label{eq:resolvent}
+ C=(\partial_u+h+V)^{-1}=C_0-C_0 V(1+C_0V)^{-1}C_0.
+\end{equation}
+In the conjugated correction the two static endpoint maps into and out of time $L^2$ have norm at most $(5/4)\sqrt\beta$. The intervening operator has norm at most $[3/(16\beta)]/(1-3/16)$. Thus the correction slices have norm at most $75/208$, and the total slice norm is less than $2$. Taking the anchor at the fixed endpoint and choosing the direction of conjugation gives the weighted row and column bounds. Cauchy--Schwarz and the two torus axes give
+\[
+ \sum_z e^{a d(x,z)/2}|C(u,x;w,z)|\le 2(1+2/a),
+ \qquad \sum_z e^{-a d(x,z)}\le (1+2/a)^2.
+\]
+In the second inequality each axis sum is bounded by $1+2\sum_{n\ge 1}e^{-an}\le 1+2/a$. Spin is conserved along a contraction. With fixed orbital offsets within one step of the anchors, transferring the weight to anchor distance costs at most $e^a$. The claimed bound follows since $1+2/a\le 8(1+4\beta J)$ and $e^a<3$. The unweighted child sum is also bounded by $Q$ from any specified parent leg, without a restriction on its offset.
+
+To connect the inverse to the trace, let $Y(u,w)$ be the one-particle fundamental evolution. The Fock evolution is the direct sum of its exterior powers, hence its trace is $\det(1+Y(\beta,0))$. The determinant cannot vanish: an eigenvector of $Y(\beta,0)$ at $-1$ would give an antiperiodic homogeneous solution, which \eqref{eq:resolvent} excludes. In fact the determinant is positive. It is real for real $V$, strictly positive at $V=0$, and cannot cross zero along $V\mapsto sV$ for $0\le s\le1$, since the same inverse bounds hold along that path.
+
+The normalized ordered contraction $\langle\mathcal T c(u)c^\dagger(w)\rangle$ solves the homogeneous evolution off the diagonal, has the identity jump by the canonical anticommutation relations, and is antiperiodic by cyclicity; thus it is $C$. Higher balanced moments satisfy the Wick determinant rule even though $Y(\beta,0)$ need not be self-adjoint. To see this, transport the fields to time zero by the invertible exterior evolutions, with creators and annihilators transforming by dual maps. The resulting ordered product is traced against the exterior lift of $Y(\beta,0)$. For diagonal $Y$ the occupation trace factors by mode; the single-mode occupation and vacancy weights are $Y_{ii}/(1+Y_{ii})$ and $1/(1+Y_{ii})$. Factoring over modes and using the anticommutation relations gives Wick's rule with the chosen order. Similarity and its exterior lift give the rule for diagonalizable $Y$, and continuity of the normalized traces on $\det(1+Y)\ne 0$ extends it to all remaining $Y$. This also verifies the rule for the ordered limits at coincidence.
+
+For the interpolated minors represent $s_{ij}$ as a Gram matrix of unit vectors. Tensor the one-particle space with their label space, the evolution with its identity, and each field with its vertex's unit vector. The resulting contractions are exactly the interpolated ones. A subminor from $C_0$ alone is an ordered static Gibbs Wick moment of unit-norm fields, up to a sign. It is bounded by one by trace H\"older: use the Schatten exponent $\beta/\Delta u$ for each positive propagation interval and the operator norm for the fields or zero intervals. The exponents sum reciprocally to one and the trace factors multiply to the static partition function. For the unweighted correction in \eqref{eq:resolvent}, the two endpoint maps have norm at most $\sqrt\beta$. Absorb $-V(1+C_0V)^{-1}$ into one factor, obtaining a Gram kernel with product of the two factor bounds at most $\beta\|V\|_\infty/(1-\beta\|V\|_\infty)\le 1/15$. This factorization needs no self-adjointness. By exterior Cauchy--Schwarz, all correction subminors also have modulus at most one. The determinant of their sum expands in complementary row and column sets of size $j$, giving at most $\sum_{j=0}^k\binom{k}{j}^2\le 4^k$ terms, each bounded by one.
+\end{proof}
+
+\section{Exact replacement of the omitted histories}
+\subsection{The tilted Gaussian estimate}
+Let $S=\|v\|_\infty$ and $d_0=U\beta\Omega^2$. With $l=|u-w|$, the nonzero Fourier coefficients in \eqref{eq:cov} are bounded by $U\Omega^2/(\beta\nu_k^2)$. Parseval for an interval indicator, with nonzero coefficients of squared moduli $|e^{i\nu_k l}-1|^2/(\beta^2\nu_k^2)$, gives
+\[
+ \Var(v(u)-v(w))\le U\Omega^2 l(1-l/\beta)\le U\Omega^2 l.
+\]
+The bound requires no restriction on $\beta\Omega$. Since $v$ is continuous with mean zero, it vanishes somewhere. Thus $|v(0)|\le\sup_u|v(u)-v(0)|$ and $S\le2\sup_u|v(u)-v(0)|$. At dyadic level $k\ge1$ connect each of the $2^{k-1}$ new midpoints to its left parent at separation $\beta 2^{-k}$. The periodic endpoint equals the starting point. If every linked increment is at most $s(3/4)^{k-1}/8$ in modulus, the sum of the linked bounds is $s/2$, and continuity gives $S\le s$. Overcounting the links by $2^k$, the Gaussian exponential moment and the variance bound $d_0 2^{-k}$ give a failure probability at level $k$ of at most $2^{k+1}e^{-A(9/8)^{k-1}}$, with $A=s^2/(64d_0)$. Using $(9/8)^j\ge 1+j/8$ and $2e^{-2}<1/2$ to sum yields
+\begin{equation}\label{eq:gausstail}
+ \mathbb P(S>s)\le 8e^{-s^2/(64d_0)},\qquad s^2/(64d_0)\ge16.
+\end{equation}
+
+The coefficient estimates will require a tilted moment, not just a probability. Define $g=\tau^3/(U\Omega^2)$, $Y=\beta S$ and $l_0=1/64$. For $g\ge 2^{23}$ and $y\ge l_0$, \eqref{eq:gausstail} gives $\mathbb P(Y>y)\le 8e^{-g y^2/64}$ and $1024y\le g y^2/128$. Integrating the tail of $e^{1024Y}$ above $l_0$ gives the boundary term $e^{1024l_0}\mathbb P(Y>l_0)$ and the integral $1024\int_{l_0}^\infty e^{1024y}\mathbb P(Y>y)\,dy$. Since $y^2\ge l_0^2+l_0(y-l_0)$ their sum is bounded by $8[1+1024\cdot128/(g l_0)]e^{-g l_0^2/128}$. Thus
+\begin{equation}\label{eq:tilt}
+ \mathbb E[\mathbf 1_{S>r} e^{1024\beta S}]\le 16e^{-g/2^{19}}.
+\end{equation}
+
+\subsection{The local replacement identity}
+Use labelled even vertices, each an ordered list of fermion legs with their times and orbital choices. Before the Wick functional is applied, products concatenate lists, with complete even vertices interchangeable; the functional imposes time ordering on the individual insertions. This commutative bookkeeping is not commutation of the quantum operators.
+
+\begin{lemma}[Exact independent local tail replacement]\label{lem:tails}
+Let $\gamma$ be a free coordinate or history law with a good event $G$ of positive probability. Draw a reference coordinate from $\gamma(\cdot\mid G)$ and independently replace it with a draw from $\gamma(\cdot\mid G^c)$ with probability $\gamma(G^c)$, taking no replacement when this is zero. The resulting law is $\gamma$. For finitely many such independent laws with additive linear electronic couplings, the conditional ordered series is obtained by applying the reference Wick functional to $\prod_j(1+W_j)$. This is a coefficient identity wherever the integrals exist, and a trace identity when the series are absolutely integrable. Here
+\begin{equation}\label{eq:replace}
+ W_j=\int_{G_j^c}d\gamma_j(z)\left[
+ \exp_{\rm Dyson}\!\left(-\int_0^\beta (z(u)-z_{j,\rm ref}(u))B_j(u)\,du\right)-1\right].
+\end{equation}
+The expectation over reference draws is taken after evaluation of the electronic trace. The coefficient norm sums integrated absolute coefficients with weight $128^m$ for $2m$ legs. If $W_j$ admits a pointwise coefficient envelope of norm at most $1/2$, then $1+W_j$ is the exponential of an absolutely convergent labelled-even-vertex interaction with envelope norm at most twice that of $W_j$. Static and dynamic replacements may occur on the same bond.
+\end{lemma}
+
+\begin{proof}
+For $p=\gamma(G^c)$ and fixed reference, the recovered coordinate law before averaging is $(1-p)\delta_{z_{\rm ref}}+\mathbf 1_{G^c}\gamma$. Averaging the first term over the good reference gives $\mathbf 1_G\gamma$. In the interaction picture the first term contributes $(1-p)$ times the identity; the second gives the unconditioned tail integral of the Dyson series for the difference from the reference. Together these give $1+W_j$ with precisely the subtraction in \eqref{eq:replace}. For independent labels, expand the exponential ordered series for the sum of the differences. The multinomial coefficient for assigning orders $m_1,\dots,m_j$ to different labels cancels the single Dyson factorial to give $\prod_i1/m_i!$, with the full list still time ordered. Thus the labelled product is exact. In particular the static and dynamic differences on an SSH bond add before time ordering. At coincident times the order within each bilinear is fixed. Distinct integrated insertion times coincide only on a null set.
+
+The coefficient norm is submultiplicative by the product rule for independent lists and time cubes; the same is true of nonnegative pointwise envelopes. With envelope $W_{j,\rm env}$ of norm at most $1/2$, the ordinary power series for $\log(1+W_j)$ is dominated coefficientwise by $\sum_{k\ge1} W_{j,\rm env}^k/k$, of norm at most $2\|W_{j,\rm env}\|$. The identity with its exponential holds in this absolutely summable algebra. For the reference of Lemma~\ref{lem:wick}, evaluation under the Wick functional preserves absolute convergence at finite volume, by $4^m\le128^m$. The product and logarithm identities are made before taking this functional, not as identities of unordered electronic operators.
+\end{proof}
+
+Apply the lemma independently to each $v$, and in SSH also independently to each $b_0$. The good events have positive free probability, by \eqref{eq:tilt} in the dynamic case. At a fixed choice of bilinear monomials and fixed times the absolute degree-$m$ dynamic coefficient is bounded by $\int_{S>r}(2S)^m\,d\gamma/m!$, since the reference amplitude is at most that of the tail draw. For static replacements the bound is $\int_{|z|>R}(2|z|)^m\,d\gamma/m!$. Each $B_j$ has at most four bilinear monomials. The weighted time-cube sum of the dynamic envelope is at most \eqref{eq:tilt}, since $128\cdot4\cdot2=1024$. For the static envelope it is at most $2e^{-\beta R^2/(8U)}$: multiplying the Gaussian density by $e^{1024\beta |z|}$ leaves exponent at most $-\beta z^2/(4U)$ on $|z|>R\ge4096U$. One half gives the tail factor, and integrating the other half against the original Gaussian normalization gives at most two.
+
+Let $w_m$ be the sum and time integral of the pointwise envelopes for vertices with $2m$ legs at a single anchor, now taken from the local logarithms. Anchor a bond at its site in the positive lattice direction convention, with two possible orientations; each leg is within one step of that anchor. For $x=1+\beta E$ we obtain under \eqref{eq:threshold}
+\begin{equation}\label{eq:budget}
+ \sum_{m\ge1} w_m128^m\le 64e^{-g/2^{19}}+8e^{-2^{21}x},
+ \qquad Q\le 2^{21}x,
+\end{equation}
+with the static term omitted in Holstein. Indeed $\beta R^2/(8U)\ge 2^{21}x$ and $1+4\beta J\le2^{15}x$, using $J\le4097(t+U+\tau)$ for SSH. Both preliminary envelopes have norm below $1/2$. There are at most two orientations, and taking the local logarithm costs at most a factor of two. In the budget multiplied by $Q$, the dynamic contribution is bounded by $2^{27}x e^{-64(1+\log x)}<1/64$ and the static contribution by $2^{24}x e^{-2^{21}x}<1/64$ for $x\ge1$. For the latter use $\log x\le x$. Thus the product is below $1/4$ with strict margin. The electronic cost of a large history is already accounted for by the tilt in \eqref{eq:tilt}; nothing here equates a free-Gaussian tail probability to one under the interacting law.
+
+\section{Connected expansion and charged correlations}\label{sec:connected}
+Take the Wick functional at a fixed reference and insert the exponential of the sum of local logarithms. Its connected coefficients have a tree representation, derived in Appendix~\ref{app:trees}. Each tree edge supplies a contraction and uses one leg at each end. The remaining Wick minor costs at most $\prod_i 4^{m_i}$, and a vertex of valence $2m$ and degree $d_i$ costs at most $(2m)^{d_i}$ in leg choices. Weight every edge by $e^{a d/2}$ between anchors. Summing the resulting majorant of child subtrees attachable to a specified parent leg is bounded by iteration from zero of
+\begin{equation}\label{eq:recursion}
+ B\longmapsto Q\sum_{m\ge1}4^m(2m)w_m e^{2mB}.
+\end{equation}
+Here the incoming leg costs $2m$, and the factorial for unordered branches gives the outgoing factor $e^{2mB}$. Pointwise envelopes let the child anchor be summed at fixed vertex template and times before the time integral. For $0\le B\le1$, we have $4^m(2m)e^{2m}\le128^m$, since $2m\le2^m$ and $e<3$. The image is therefore below $1/4$ by \eqref{eq:budget}. A specified root costs only $4^m e^{2mB}$ in addition to its coefficient; summing roots also bounds the log partition per site. In finite volume the convergent connected series exponentiates to the original Wick series, so the latter is nonzero.
+
+At zero source the resulting conditional partition $Z_{\rm ref}(0)$, including its electronic reference trace, is positive. Indeed each recovered real history gives the square of a real single-spin determinant, since the two spins have identical real evolutions. This remains true for histories whose determinant vanishes. The conditional partition is therefore nonnegative, and nonzero by the expansion and Lemma~\ref{lem:wick}. Positivity is asserted here only at zero source.
+
+Introduce labelled even roots for $A$ and $B_y$ at any common time. For scalar markers $\alpha,\zeta$, the coefficient of $\alpha\zeta$ in $\log\langle(1+\alpha A)(1+\zeta B_y)\rangle_{\rm ref}$ is the conditional two-point function: the individual conditional expectations vanish by number conservation. The expectation here includes all tail replacements and is normalized by $Z_{\rm ref}(0)$. For disjoint supports the two even fields commute, so their relative order at that time does not matter. Internal order within each field is prescribed.
+
+To bound this coefficient uniformly, fix the first root and allow insertions of translations of the second with a small common scalar amplitude. Terms with one insertion of each field are the same as with the original linear markers; higher marker orders merely serve to majorize the labelled trees. It suffices to treat field monomials, since the fields are finite linear combinations. Let $R_s\ge1$ be a common support radius. A source offset paired with an ordinary offset costs at most $e^{a(R_s+1)/2}$ when using anchor weights, and two source offsets cost at most $e^{aR_s}$. This follows by transferring the weight from the actual endpoints before applying the covariance row sum. Hence a source parent with an ordinary child has attachment cost at most $C_s Q$ for some fixed $C_s\ge1$. In the recursion distinguish bounds $B_I$ for ordinary parents and $B_S$ for source parents. On $0\le B_I\le1$, $0\le B_S\le C_s$, ordinary children contribute at most $1/4$ and $C_s/4$, respectively. The source-child contribution in each case is bounded by the amplitude times a finite row bound, times $4^m(2m)e^{2m C_s}$ for its fixed valence. Choosing the amplitude small preserves the rectangle, including at the fixed first root. These majorants absorb the support sizes without changing the bulk criterion \eqref{eq:threshold}.
+
+Extracting the coefficient with exactly one second root bounds its absolute sum over anchors with weight $e^{a d(0,y)/2}$: the product of tree weights dominates this factor along the unique path between the roots. For overlapping supports take $AB_y$ in the prescribed order as a single fixed insertion. Each nonscalar monomial is controlled by the fixed-root bound with only ordinary children, and a scalar monomial contributes its coefficient exactly. Since these displacements are bounded by the support radii, enlarging the prefactor recovers the same exponential estimate. In either case the conditional bound is uniform in the reference, volume and real chemical potential, and at any common insertion time. Averaging with positive weights $Z_{\rm ref}(0)$ preserves it for the full grand-canonical state. These are the weights induced by the electronic trace on the reference draws. Dropping them, or claiming positivity for a complex source, is unnecessary.
+
+\section{Transfer to fixed density}\label{sec:canonical}
+At fixed displacement $y$, add to the Hamiltonian $-sP_y$, where $P_y$ sums over translations of the Hermitian real part of $AB_y$; repeat for the Hermitian imaginary part. This is a translation-invariant, number-conserving, finite-range source at fixed $y$. The same connected expansion with unweighted attachments gives an analytic disk about zero, uniformly in volume and reference, whose radius can depend on $y$. In fact ordinary children are summed from the actual parent leg with bound $Q$, while the new vertices have finitely many prescribed offsets and contribute an amount proportional to $|s|\beta$. The strict margin in \eqref{eq:recursion} and the root estimate bound the per-volume absolute Taylor sum on a small disk. The first coefficient is the time integral of the conditional source expectation; by the common-time bound in Section~\ref{sec:connected} it has absolute value per volume at most $c e^{-a d(0,y)/2}$. This use of a time integral is important: conditional references need not be stationary. On a smaller disk the remaining Taylor sum per volume has modulus at most $c_y|s|^2$, by absolute summability on the larger disk.
+
+The conditional logarithm need not be real. Its modulus estimate, exponentiation, and the triangle inequality with positive zero-source weights give, for the physical, positive grand-canonical partitions and either sign of real $s$,
+\begin{equation}\label{eq:pressure}
+ \frac{\log Z_{\rm GC}(s;\mu)-\log Z_{\rm GC}(0;\mu)}{V_\Lambda}
+ \le |s|c e^{-a d(0,y)/2}+c_y |s|^2.
+\end{equation}
+Only this upper bound is needed. In particular no lower bound for a complex conditional ratio is invoked.
+
+Here is the zero-source ensemble argument. Removing a bare link changes the log partition in any sector by at most $2\beta t$, by bounded perturbation and $\|B_e\|\le2$. To remove an SSH coupling, interpolate its multiplier $\lambda\in[0,1]$. Its derivative in the Gaussian representation inserts $-b_e(u)B_e(u)$ and integrates over time. Gaussian integration by parts replaces $b_e(u)$ by the kernel $D(u,w)$ and a second insertion $-\lambda B_e(w)$. This identity follows by Wick expansion, with absolute convergence as for \eqref{eq:cov}. The resulting two-time function is in the full stationary Gibbs trace, not the reference. Its modulus is bounded by $\|B_e\|^2\le4$ by trace H\"older, valid in a number sector because $B_e$ preserves number. Since $D\ge0$ and has integral $U$, the derivative has modulus at most $4\lambda\beta U$. Integrating costs at most $2\beta U$. Site couplings obey the same bound using $\|n_x\|\le2$. Free oscillator factors cancel when links are cut. Comparison with the uncoupled electronic sector dimensions now bounds the zero-source log partitions above and below by constants times volume at fixed parameters, uniformly in sector.
+
+Tile an $L\times L$ torus by open $k\times k$ blocks, leaving at most $O(kL)$ sites in a strip. Cutting block boundaries and isolating strip sites costs $O(V_\Lambda/k)+O(kL)$ in the log partition. For the resulting decoupled system the canonical partition is a sum of products over particle allocations. Its log lies between the maximum allocation log weight and this maximum plus the log of the number of allocations. For the blocks that error per site is at most $\log(2k^2+1)/k^2$; the strip contributes a vanishing fraction at fixed $k$. The maximum for fixed $k$ tends per site to the upper concave envelope $f_k(n)$ of the block log partitions per site at their allowed densities. The upper bound is concavity applied to the mean block density, which tends to $n$. For the lower bound choose a mixture attaining the envelope at $n$, round its fractions to integer block counts, and correct the number mismatch of $o(V_\Lambda)$ electrons one unit at a time in blocks or the strip. Every block occupation from zero to $2k^2$ is allowed, so this correction affects at most $o(V_\Lambda)$ blocks at fixed $k$, with bounded cost per block. The strip's sector weights are bounded per site as well.
+
+Consequently along every sequence of torus densities tending to $n$ the liminf and limsup of $V_\Lambda^{-1}\log Z_N(0)$ are each within $O(1/k)+\log(2k^2+1)/k^2$ of $f_k(n)$, with the error independent of density. Sending $k\to\infty$ proves existence of the same limit $f(n)$ along arbitrary such sequences and concavity, as the envelopes approximate $f$ uniformly. The grand-canonical log partition per site at $\mu$ differs from the maximum of $V_\Lambda^{-1}(\log Z_N(0)+\beta\mu N)$ by at most $\log(2V_\Lambda+1)/V_\Lambda$. Compactness of $[0,2]$ and convergence along arbitrary density sequences therefore give its limit as $\max_n(f(n)+\beta\mu n)$.
+
+At any fixed interior density a finite concave $f$ has a finite supporting slope. Write it as $-\beta\mu$, so the given $n$ is a maximizer at that $\mu$. Coexistence need not select a unique maximizing density, and uniqueness is not used. Along the canonical sequence,
+\[
+ \delta_L=\frac{\log Z_{\rm GC}(0;\mu)-\log Z_N(0)-\beta\mu N}{V_\Lambda}
+ \ge0,\qquad \delta_L\longrightarrow0.
+\]
+For real $s$, sector inclusion gives $e^{\beta\mu N}Z_N(s)\le Z_{\rm GC}(s;\mu)$. The normalized canonical log partition is convex in $s$ by positivity of the connected Gibbs Duhamel quadratic form. The secants to $\pm s$ bound its derivative at zero from both sides. Applying \eqref{eq:pressure} to both signs gives an absolute bound on this derivative of
+\[
+ c e^{-a d(0,y)/2}+c_y s+\delta_L/s,\qquad s>0.
+\]
+Take volume to infinity at fixed $s,y$, then send $s\downarrow0$ at fixed $y$, and only then increase separation. Translation symmetry and division by $\beta$ in the derivative identify the desired canonical correlation, for the real and imaginary parts separately. This proves the thermodynamic statement without a finite-volume equivalence assertion for charged correlations.
+
+Finally $\tau^3/[1+\log(1+E/\tau)]$ is strictly increasing from zero to infinity. For a trial $\tau=c\Omega^{2/3}[\log(E/\Omega)]^{1/3}$ with $c>0$, the ratio of the logarithmic bracket in \eqref{eq:threshold} to $\log(E/\Omega)$ tends to $2/3$, while $\tau^3/(U\Omega^2\log(E/\Omega))=c^3/U$. Bracketing the root by values of $c$ on either side of $[(2/3)2^{25}U]^{1/3}$ gives \eqref{eq:asymptotic}. Exponential decay at and above the root excludes algebraic charge-two correlations there, completing the proof of Theorem~\ref{thm:clustering}.
+
+\section{Scope of the bound}
+The threshold is $o(\sqrt\Omega)$ at fixed $t,U$. The gain over Ref.~\cite{slow} comes from retaining bounded temporal histories and expanding only the exactly restored tails. The spatial summation cost remains linear in $1+\beta E$. An expansion of the nonzero-mode covariance at the static reference instead pays a polynomial vertex mass of order $U\beta^3\Omega^2$. Bounds tied to its first derivative or to trees with that mass do not constrain the exponentially small coefficient envelope in \eqref{eq:budget}.
+
+A bound by $C\Omega$ with $C$ fixed in the adiabatic limit remains open. At $\tau=c\Omega$, the control parameter here is $g=c^3\Omega/U\to0$, rather than large. The theorem does not require regular bare filling, whereas a comparison with the bare Migdal--Eliashberg Fermi-surface scale would need a regular bare Fermi surface on which that comparator is defined. No such linear comparison is proved here. The result concerns conventional Berezinskii--Kosterlitz--Thouless order only when detected by a fixed local electronic field of charge two. It does not control finite-mass square-lattice helicity, the full Yang pair matrix, or order detected only by phonon-dressed fields. There is no lower bound constructing an ordered phase and no physical transition asymptotic.
+
+A separate pressure comparison, with proof in Appendix~\ref{app:pressure}, illustrates a different limitation. A source-uniform, additive quantum-to-static pressure bound is not a bound on the curvature at zero source, even for analytic, even, convex pressures. This is an obstruction to an inference from the comparison, not a counterexample realized by either model.
+
+\subsection{Sharpness of the exponent within the method}
+The cutoff $\|v\|_\infty\le\kappa\tau$, with $\kappa>0$ fixed, has a limitation even before any spatial tree is summed. To isolate it, set $t=0$ in the spinful Holstein model and use the centered atomic coupling $b(n-1)$, with $n$ the total occupation of the atom. Let $b$ be its full periodic energy-coordinate path, $b_0$ its time average and $v=b-b_0$. Consider the two restrictions
+\[
+ \mathcal B_r=\{\|v\|_\infty>r\},\qquad
+ \mathcal E_r=\{|b(\beta/4)-b(0)|>2r\}\subseteq\mathcal B_r.
+\]
+The second event is measurable on the first half of the full path, whereas an evaluation of $v$ on that half need not be.
+
+\begin{proposition}[Atomic cutoff threshold]\label{prop:sharpness}
+Fix $U>0$, $\kappa>0$ and a budget $0<p_0<1$. In the exact interacting atom, grand canonically or at fixed occupation, either bad event $\mathcal A_r=\mathcal B_r$ or $\mathcal E_r$ satisfies
+\begin{equation}\label{eq:atomic-probability-bounds}
+\begin{aligned}
+ \mathbb P(\mathcal A_{\kappa\tau})&\le\min\{1,\,3e^{-\kappa^2g/4}\},\\
+ \mathbb P(\mathcal A_{\kappa\tau})&\ge
+ \begin{cases}
+  1-2\kappa\sqrt{128/21}\,\sqrt g, & 0<\beta\Omega\le1,\\
+  1-2\kappa\sqrt{35/3}\,\tau/\sqrt{U\Omega}, & \beta\Omega\ge1 .
+ \end{cases}
+\end{aligned}
+\end{equation}
+For all sufficiently small $\Omega$ at fixed $U$, achieving $\mathbb P(\mathcal A_{\kappa\tau})\le p_0$ requires $g\ge21(1-p_0)^2/(512\kappa^2)$, and $g\ge(4/\kappa^2)\log(3/p_0)$ is sufficient. Thus the cutoff-probability scale is $(U\Omega^2)^{1/3}$. The law of $v$ is not reflection positive under $u\mapsto\beta-u$: writing $D_\Omega$ for its covariance as a function of time difference, one has
+\begin{equation}\label{eq:projected-rp}
+ D_\Omega(\beta/2)=\mathbb E[v(\beta/4)v(3\beta/4)]
+ = U\tau\left[\frac{\beta\Omega}{2\sinh(\beta\Omega/2)}-1\right]<0 .
+\end{equation}
+The failure also holds for a bounded observable on the first half of the projected path.
+\end{proposition}
+
+The method-class restriction has three hypotheses. The method requires $\beta\|v\|_\infty\le\kappa$ for every accepted quadratic reference and must bound a positive discarded-history activity dominating the probability of $\mathcal B_{\kappa\tau}$ or of the necessary increment restriction $\mathcal E_{\kappa\tau}$. It uses positive estimates, such as reflection, chessboard or Gaussian-domination estimates, without compensating cancellations among signed connected insertion determinants. Finally, it requires uniformity over auxiliary electronic references, including the Holstein atom. Under these hypotheses a fixed discarded-history budget is impossible at $\tau=O(\Omega)$ or at $\tau=\Omega$ times any fixed power of a logarithm. The upper and lower probability bounds give the exact cutoff-probability exponent $2/3$; a chessboard bound cannot improve it without dropping at least one hypothesis.
+
+This is a method-class threshold only. It is not a physical lower bound on $T_{\rm pair}$ or a disproof of $k_BT_{\rm pair}\le C\Omega$. On a lattice of uncoupled atoms the charged correlation between disjoint supports vanishes, even in a fixed total number sector, by the independent local phase symmetries. The proposition does not apply to unrestricted mirrored references with temporal amplitudes of order $\sqrt{U\Omega}$ at fixed $\beta\Omega$. It also leaves open reference refreshing with a non-pointwise temporal transport estimate, integrated determinant or minor estimates that retain cancellations or compensating electronic weights, and estimates not requiring atomic-reference uniformity. It does not rule out an order-$\Omega$ connected lattice source estimate or a linear or $\Omega$-times-log ceiling for the square lattice at fixed $t>0$ and positive regular density. Equation~\eqref{eq:projected-rp} rules out a separate shortcut: reflection positivity of the full path cannot be used to chessboard the projected field as if it were itself reflection positive. The proof and the full-path increment comparison are given in Appendix~\ref{app:sharpness}.
+
+\appendix
+\section{Forest identity and counting of branches}\label{app:trees}
+For a finite ordered Wick moment of labelled even vertices, multiply each intervertex contraction by $s_{ij}=s_{ji}$, leaving $s_{ii}=1$. The resulting expression is a polynomial $P$. For a forest $F$ on the labels and edge parameters $t_e\in[0,1]$, let $s^F_{ij}$ be the minimum along the forest path and zero between components, with diagonal one. The forest identity of Brydges and Kennedy~\cite{bk} in the form used here is
+\begin{equation}\label{eq:forest}
+ P(\mathbf 1)=\sum_F\int_{[0,1]^F}\prod_{e\in F}dt_e\,
+       \left(\prod_{e\in F}\partial_{s_e}\right)P(s^F).
+\end{equation}
+For a monomial with repeated edges, assign independent uniform weights to all its edge copies. Almost surely the resulting multigraph has a unique maximum spanning forest. Given a particular choice of its tree copies and their weights, a rejected edge must have weight below the minimum on the tree path joining its endpoints. This criterion follows by exchanging that edge with a minimum path edge; conversely the descending-weight greedy rule admits precisely the chosen tree copies if all these inequalities hold. Integrating all rejected weights yields the monomial with the chosen copies removed, evaluated at the path minima. Summing over choices supplies exactly the derivatives and proves \eqref{eq:forest}, including isolated vertices. The matrix $s^F$ is positive semidefinite: it is the integral over thresholds of the block-one matrices for components formed by edges above the threshold. This is why the interpolation in Lemma~\ref{lem:wick} is sufficient.
+
+At $s^F$, contractions between different components vanish. Each forest term factors over its components, with no sign from regrouping whole even vertices. In the exponential generating series, the sum over set partitions of the labels into such components is the exponential of the sum of connected terms. Thus the logarithm selects trees. Differentiating once in an edge chooses an unused contraction between the two incident vertices, and iterating leaves the Wick minor with those rows and columns deleted. Leg choices at a vertex of degree $d_i$ are bounded by $(2m_i)^{d_i}$. With total initial half-valence $\sum_i m_i$, the residual minor is bounded by $4^{\sum_i m_i}$, regardless of how many contractions were removed.
+
+For the rooted count, fix the incoming parent leg. After choosing the child template, times and the child's incident leg, summing the child's anchor costs at most $Q$. All remaining legs can spawn descendants. For $k$ outgoing branches the descendant labels are divided into $k$ nonempty sets. For labelled, temporarily ordered branches of sizes $n_1,\ldots,n_k$ the multinomial allocation of the labels cancels their exponential generating factorial, leaving $\prod_i1/n_i!$; forgetting the order contributes $1/k!$. Designating each branch's root among its labels cancels the corresponding root factorial in the same way. Thus with a child budget $B$ the total outgoing majorant is $\sum_{k\ge0}(2mB)^k/k!$. Overcounting leg reuse only increases this nonnegative majorant. This gives \eqref{eq:recursion} by increasing allowed depth from zero. If the root itself is fixed it has no incoming attachment factor. For an unrooted series with $n$ vertices, designating a root and replacing $1/n!$ by $1/(n-1)!$ bounds its absolute sum by the rooted estimate, hence by a constant times volume.
+
+For clarity, equality between the connected series and the logarithm does not presume nonvanishing at the physical parameters. Multiply all logged interaction vertices by a common variable. At finite volume the Wick series is absolutely convergent under this scaling on every bounded disk: Lemma~\ref{lem:wick} bounds its degree-$n$ term by the $n$th power of the total volume-weighted $4^m$ envelope divided by $n!$. The connected majorant is summable on a disk containing the closed unit disk, by the strict margin in \eqref{eq:budget}. Near zero their Taylor coefficients agree by the forest factorization, and the identity between the Wick series and the exponential of the connected series extends to the physical point. The same reasoning applies with sufficiently small source amplitudes using the strict source margins. It supplies the analytic logarithm of the ratio at zero source used in Section~\ref{sec:canonical}.
+
+\section{What a uniform pair-source comparison yields}\label{app:pressure}
+Work grand canonically with an anomalous source $-hA_\eta$, where
+\[
+ A_\eta=\sum_x(\eta_x c_{x\uparrow}^\dagger c_{x\downarrow}^\dagger
+             +\bar\eta_x c_{x\downarrow}c_{x\uparrow}),\qquad |\eta_x|\le1.
+\]
+Let $p(h)=\tau\log Z(h)/V_\Lambda$ and let $p_{\rm st}$ use only the static Gaussian coordinates, with the same variance as the quantum zero mode. If $M$ is the oscillator count, then
+\begin{equation}\label{eq:sandwich}
+ 0\le p_{\rm qu}(h)-p_{\rm st}(h)\le \varepsilon,
+ \qquad \varepsilon=(M/V_\Lambda)\min\{\Omega/2,\Omega^2/(24\tau)\}.
+\end{equation}
+To prove the sign, interpolate at parameter $\lambda$ with a static Gaussian multiplied by $\sqrt{1-\lambda}$ and an independent quantum coordinate multiplied by $\sqrt\lambda$. The total covariance retains the same zero mode. Gaussian integration by parts for the two independent Gaussian terms gives the derivative of the normalized log trace as half the time integral of the covariance difference times the two-time autocorrelation of each $B_j$. The difference is \eqref{eq:cov} without its zero mode. At fixed static coordinates the remaining quantum Hamiltonian is self-adjoint and stationary, even in the presence of $-hA_\eta$. Writing $G_j(w)$ for its ordered autocorrelation and $\widehat G_j(\nu)=\int_0^\beta e^{-i\nu w}G_j(w)\,dw$, stationarity gives a derivative equal to the positive static-weight average of
+\[
+ \frac12\sum_j\sum_{k\ne0}\frac{U\Omega^2}{\nu_k^2+\Omega^2}\widehat G_j(\nu_k).
+\]
+Indeed insertion of energy eigenstates gives the real transform as a sum over ordered pairs with terms
+\[
+ \frac{|(B_j)_{ab}|^2 (e^{-\beta E_a}-e^{-\beta E_b})(E_b-E_a)}
+ {Z[(E_b-E_a)^2+\nu_k^2]}\ge0,
+\]
+where equal energies contribute zero. Pairing exchanged indices cancels the imaginary part. The confining harmonic terms plus bounded electronic coupling give a discrete spectrum and trace-class Gibbs operator at fixed volume and static coordinates. Trace H\"older bounds the autocorrelation by $\|B_j\|^2$; the covariance coefficients are summable and all the interpolated Gaussian integrals have the finite-volume Dyson majorants used for \eqref{eq:cov}. These bounds justify differentiation in the interior and continuity at the endpoints.
+
+For the upper bound put the spring terms in the finite electronic matrix potential $V(b)$ of the flat Brownian-bridge trace, with diffusion $U\Omega^2$ in each coordinate. The diagonal free heat kernel is $(2\pi\beta U\Omega^2)^{-M/2}$. At $n$ equal time slices, trace H\"older bounds the absolute electronic trace of the ordered product by the geometric mean of the $\Tr e^{-\beta V(b_i)}$, hence by their arithmetic mean. Write $b_i=b+q_i$ at fixed bridge displacement $q$. Integrating over the initial flat coordinate $b$ gives the same bound $\int db\,\Tr e^{-\beta V(b)}$ for every bridge and every $n$, by translation of each term of the mean. For passage to the limit, completing the square gives $V(b)\ge(c|b|^2-C)I$ with $c>0$. At fixed continuous bridge the absolute product trace is bounded by the Fock-space dimension times $\exp[\beta C-\beta c(|b|-\|q\|_\infty)_+^2]$, an integrable function of $b$. The ordered products converge along each bridge. Dominated convergence first in $b$, then over bridges using the common integrated H\"older bound, yields the bound for the Brownian-bridge heat trace.
+
+Dividing by the free harmonic trace $[2\sinh(\beta\Omega/2)]^{-M}$ and comparing to the static normalization $(2\pi U/\beta)^{-M/2}$ gives $Z_{\rm qu}/Z_{\rm st}\le[\sinh(\beta\Omega/2)/(\beta\Omega/2)]^M$. For $x\ge0$, $\sinh x/x\le e^x$ by integrating $\cosh(sx)$ over $s\in[0,1]$, and $\sinh x/x\le e^{x^2/6}$ by $(2n+1)!\ge6^n n!$. This proves \eqref{eq:sandwich}.
+
+At fixed static coordinates make a down-spin particle-hole change of variables. The source becomes a number-conserving quadratic operator with one-body matrix $M_\eta$ of squared Hilbert--Schmidt norm $2\sum_x|\eta_x|^2\le2V_\Lambda$. The rest of the conditional Hamiltonian is still quadratic and number conserving in the transformed variables, up to a scalar. In its diagonal occupation basis the variance is $\sum_{ij}|(M_\eta)_{ij}|^2 f_i(1-f_j)\le 2V_\Lambda$, where $f_i$ are mode occupations. The connected Gibbs Duhamel average is bounded by the ordinary variance: after subtracting the mean operator, each spectral term uses the logarithmic mean of the two Boltzmann weights, bounded by their arithmetic mean. Accordingly the conditional static pressure curvature is at most $2\beta$. Its first derivative vanishes at zero by the original number symmetry. Integrating the curvature bound, exponentiating, and averaging with the conditional zero-source weights gives $p_{\rm st}(h)-p_{\rm st}(0)\le\beta h^2$. Both pressures are even by rotation by $\pi/2$ in electronic phase and convex in the real source. Combining with \eqref{eq:sandwich} gives $0\le p_{\rm qu}(h)-p_{\rm qu}(0)\le\beta h^2+\varepsilon$.
+
+For an explicit information obstruction, in dimensionless variables take $f(h)=\sqrt{1+h^2}-1$ and $q_\delta(h)=a_0(\sqrt{\delta^2+h^2}-\delta)$, where $a_0=\min(1/3,\sqrt{2\varepsilon/3})$, $\delta>0$ and $\varepsilon>0$. Set $\kappa=\varepsilon/2$ and take comparison functions $p_s=f$ and $p_q=\kappa\log(e^{f/\kappa}+e^{q_\delta/\kappa})$. For $|h|\le1$, $f\ge h^2/3$, and for $|h|\ge1$, $f\ge |h|/3$. Since $q_\delta\le a_0|h|$, the positive part of $q_\delta-f$ is at most $3a_0^2/4\le\varepsilon/2$. The logarithmic sum adds at most $\kappa\log2<\varepsilon/2$ to the maximum, so $0\le p_q-p_s\le\varepsilon$ globally. Both are even and real analytic, with slopes of modulus at most one; convexity of $p_q$ follows from its second derivative, a convex combination of the inputs' second derivatives plus a nonnegative slope variance. Yet $p_s''(0)=1$ and $p_q''(0)=(1+a_0/\delta)/2$, which is unbounded as $\delta\downarrow0$. The missing model estimate for this route is a quadratic bound on the source-dependent pressure difference after subtracting its value at zero, or a direct susceptibility bound. The comparison functions are not model pressures.
+
+\section{Proof of the atomic cutoff threshold}\label{app:sharpness}
+\begin{proof}[Proof of Proposition~\ref{prop:sharpness}]
+\emph{The interacting law.}
+The harmonic part of the atomic Hamiltonian is $\Omega d^\dagger d$ up to a constant, where $d$ is the oscillator annihilator and $b=\sqrt{U\Omega/2}\,(d+d^\dagger)$. The Gaussian energy-coordinate action is $(2U)^{-1}\int_0^\beta[b(u)^2+\Omega^{-2}b'(u)^2]\,du$, in the sense of the inverse covariance in \eqref{eq:cov}. The periodic Green function solves $(-\partial_u^2+\Omega^2)D=U\Omega^2\delta_{\rm per}$, with derivative jump $-U\Omega^2$ at zero. Solving with periodicity and subtracting the constant mode of variance $U/\beta$ gives
+\begin{equation}\label{eq:atomic-covariance}
+ D_\Omega(s)=\frac{U\Omega}{2}\,
+ \frac{\cosh[\Omega(\beta/2-\ell(s))]}{\sinh(\beta\Omega/2)}
+ -\frac{U}{\beta},
+\end{equation}
+where $\ell(s)=\min_{k\in\mathbb Z}|s-k\beta|$. This is the covariance of the continuous centered loop $v$. In occupation sector $n$, the electronic factor, apart from fugacity and spin multiplicity, is $e^{-\beta(n-1)b_0}$. It depends only on the constant mode, which is independent of all the other Gaussian modes. Thus the law of $v$ is unchanged by the interacting weight, both at fixed occupation and when the electronic sectors are summed. The same argument holds on an atomic lattice at fixed total number: summing over allowed site occupations reweights only the collection of static modes.
+
+\emph{Reflection.}
+On the projected path, reflect the first-half observable $f(v)=v(\beta/4)$ to $v(3\beta/4)$. Equation~\eqref{eq:atomic-covariance} gives \eqref{eq:projected-rp}, strictly negative since $\sinh x>x$ for $x>0$. The bounded truncations $\max(-R,\min(R,f))$ converge to $f$ in Gaussian $L^2$, as do their reflections to the reflected $f$. By Cauchy--Schwarz, the reflected form of a sufficiently large finite truncation is negative. For small $\beta\Omega$ the covariance in \eqref{eq:projected-rp} is $-U\Omega^2/(24\tau)+O(U\Omega^4/\tau^3)$. The negative form does not contradict full-path reflection positivity: $v(\beta/4)$ depends on the second half of $b$ through $b_0$, and fixing the period average couples the two half bridges rather than preserving their factorization.
+
+\emph{Lower probability bounds.}
+The increment $\Delta=b(\beta/4)-b(0)$ is unchanged by subtracting $b_0$. It is centered Gaussian with variance $2[D_\Omega(0)-D_\Omega(\beta/4)]=U\Omega H(\beta\Omega)$, where, for $x>0$,
+\[
+ H(x)=\frac{\cosh(x/2)-\cosh(x/4)}{\sinh(x/2)}
+     =\frac{(1-e^{-x/4})(1-e^{-3x/4})}{1-e^{-x}} .
+\]
+For $0<x\le1$ the numerator in the hyperbolic form is at least $3x^2/32$ by its power series. On $[0,1/2]$, $\cosh u\le(1-u^2/2)^{-1}\le8/7$, since $(2n)!\ge 2^n$. Integrating $\sinh u\le(8/7)u$ from $x/4$ to $x/2$ gives numerator at most $3x^2/28$, while $x/2\le\sinh(x/2)\le4x/7$. Thus $21x/128\le H(x)\le3x/14$. For $x\ge1$ use $1-e^{-u}\ge u/(1+u)$ and a denominator at most one in the product form to get $H(x)\ge(1/5)(3/7)=3/35$.
+
+Writing $\sigma^2=\Var\Delta$, the maximum of the Gaussian density gives $\mathbb P(|\Delta|\le2r)\le4r/(\sqrt{2\pi}\sigma)\le2r/\sigma$. The two lower bounds in \eqref{eq:atomic-probability-bounds} follow for $\mathcal E_r$ with $r=\kappa\tau$, and hold for $\mathcal B_r$ by inclusion. At $\beta\Omega\le1$, solving the inequality for budget $p_0$ gives the necessary value of $g$. There is no low-temperature exception: for $\beta\Omega\ge1$ we have $\tau\le\Omega$, so the second lower bound tends uniformly to one as $\Omega\downarrow0$. The same two branches show convergence of both bad-event probabilities to one whenever $\tau=o((U\Omega^2)^{1/3})$.
+
+\emph{Upper probability bound.}
+Let $v_*$ be the mean-zero periodic massless Gaussian whose nonzero Fourier covariance coefficients are $U\Omega^2/(\beta\nu_k^2)$. They exceed those of $v$. Their differences are the covariance coefficients of an independent centered Gaussian $z$, so we can take $v_*=v+z$. The Fourier standard deviations of $z$ are $O(|k|^{-2})$; the expected sum of their absolute Gaussian amplitudes is finite, so the series converges absolutely and uniformly almost surely. For $\lambda>0$, conditional Jensen for the convex function $w\mapsto e^{\lambda\|w\|_\infty^2}$ gives
+\[
+ \mathbb E e^{\lambda\|v\|_\infty^2}\le \mathbb E e^{\lambda\|v_*\|_\infty^2}.
+\]
+A standard Brownian bridge $B$ on $[0,\beta]$ gives a representation $v_*=\sqrt U\,\Omega(B-\beta^{-1}\int_0^\beta B)$. Indeed subtracting period averages in both variables of the bridge kernel $\min(u,w)-uw/\beta$ gives $\beta/12-\ell(u-w)/2+\ell(u-w)^2/(2\beta)$, whose nonzero Fourier coefficients are $1/(\beta\nu_k^2)$. In particular $\|v_*\|_\infty\le2\sqrt U\,\Omega\|B\|_\infty$.
+
+The one-sided bridge maximum satisfies $\mathbb P(\sup B\ge y)=e^{-2y^2/\beta}$ for $y>0$. To see this, reflect Brownian motion after its first crossing of $y$; paths crossing $y$ and ending at zero are paired with paths ending at $2y$. The ratio of the endpoint densities, obtained by conditioning in shrinking intervals about the endpoints, is $e^{-2y^2/\beta}$. Applying this to both signs bounds $\mathbb P(\|B\|_\infty\ge y)$ by $2e^{-2y^2/\beta}$. With $d_0=U\Omega^2\beta$ as before, this gives $\mathbb P(\|v_*\|_\infty^2>q)\le2e^{-q/(2d_0)}$. Integrating the tail against $(4d_0)^{-1}e^{q/(4d_0)}$ yields $\mathbb E e^{\|v_*\|_\infty^2/(4d_0)}\le3$. Jensen and Markov now give $\mathbb P(\mathcal B_r)\le3e^{-r^2/(4d_0)}$. By containment this is also an upper bound for $\mathcal E_r$. Taking $r=\kappa\tau$ proves the upper probability and sufficient budget bounds. For example, for $\kappa=1$ and $p_0=1/2$, the necessary constant is $g\ge21/2048$, and $g=8$ suffices since $e^2\ge1+2+2+8/6=19/3$.
+\end{proof}
+
+\paragraph{Full-path slab restrictions.}
+At fixed $\beta\Omega>0$, the local density estimate just proved gives
+\[
+ \mathbb P(\mathcal E_{\kappa\tau})
+ \ge1-\frac{2\kappa}{(\beta\Omega)\sqrt{H(\beta\Omega)}}\sqrt{\frac{\Omega}{U}}.
+\]
+For any fixed finite set of nontrivial increments at fixed scaled separations in reflected slabs of width proportional to $\Omega^{-1}$, the same covariance calculation gives variances $U\Omega H_j(\beta\Omega)$, with $H_j(\beta\Omega)>0$. Each probability of an increment within $2\kappa\tau$ is at most $2\kappa\sqrt{\Omega/U}/[(\beta\Omega)\sqrt{H_j(\beta\Omega)}]$. A union bound shows the simultaneous bad restrictions have probability tending to one, without independence. There can be no $\Omega$-independent exponential suppression in the number of such slabs. Under a valid chessboard comparison bounding one event by the $m$th root of its repeated restriction, that root must tend to one as well. At the cutoff-probability scale $(U\Omega^2)^{1/3}$, $\beta\Omega$ tends to zero, so the entire thermal circle is already shorter than a slab of width $\Omega^{-1}$.
+
+\newpage
+\section*{Data availability}
+No empirical or simulation data were used. The analytic notes are \path{replay/RIGOR.md} and \path{replay/linear5/SHARPNESS.md}; \path{replay/linear5/RIGOR.md} is a scope pointer only. For reproducibility, run both \path{replay/replay.py} and \path{replay/linear5/replay.py} with \texttt{--all-mutants} from their respective directories. The scripts check finite identities and constants by exact and interval arithmetic; neither replay formalizes the analytic or thermodynamic arguments.
+\ifstaged{\LINEARFOURDOI}{\par\noindent Article DOI: \expandafter\DOI\expandafter{\LINEARFOURDOI}}{}
+\ifstaged{\LINEARFOURSUPPDOI}{\par\noindent Supplement DOI: \expandafter\DOI\expandafter{\LINEARFOURSUPPDOI}}{}
+\ifstaged{\LINEARFOURREPO}{\par\noindent Source repository: \expandafter\url\expandafter{\LINEARFOURREPO}}{}
+
+\section*{AI assistance}
+AI agents generated proofs, certificates, code, and manuscript drafts and edits under D. Rens' direction and review.
+
+{\raggedright\bibliographystyle{plain}\bibliography{refs}\par}
+\end{document}

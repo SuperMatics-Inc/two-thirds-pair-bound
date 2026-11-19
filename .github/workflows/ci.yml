@@ -1,0 +1,54 @@
+name: replay-and-paper
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source manifest
+        run: sha256sum -c MANIFEST.sha256
+      - name: Install pinned replay dependencies
+        run: python -m pip install --disable-pip-version-check mpmath==1.4.1
+      - name: Exact replays and 22 mutants
+        run: |
+          set -euo pipefail
+          (cd replay && python -B replay.py --all-mutants)
+          (cd replay/linear5 && python -B replay.py --all-mutants)
+      - name: Check prose punctuation
+        run: |
+          if grep -n -E '—|---' paper/main.tex paper/refs.bib; then exit 1; fi
+          if grep -n '—' README.md CITATION.cff; then exit 1; fi
+  paper:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Tectonic and poppler
+        run: |
+          set -euo pipefail
+          curl -fsSL https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-unknown-linux-gnu.tar.gz | sudo tar -xz -C /usr/local/bin
+          tectonic --version
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends poppler-utils
+      - name: Build the manuscript
+        working-directory: paper
+        run: |
+          set -euo pipefail
+          tectonic --keep-logs main.tex
+          if grep -nE 'Overfull|Underfull|Undefined|Warning|Citation.*undefined|There were' main.log; then exit 1; fi
+          pdfinfo -url main.pdf > urls.txt
+          grep -qF 'https://github.com/SuperMatics-Inc/two-thirds-pair-bound' urls.txt
+          grep -qF 'https://doi.org/10.5281/zenodo.24372238' urls.txt
+          grep -qF 'https://doi.org/10.5281/zenodo.24372242' urls.txt
+          test -s main.pdf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: two-thirds-pair-bound-paper
+          path: paper/main.pdf
+          if-no-files-found: error
